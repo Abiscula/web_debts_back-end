@@ -8,7 +8,7 @@ export const routes = express.Router()
 routes.post('/table', (req, res) => {
     const form = formidable({ multiples: true })
 
-    form.parse(req, (err, fields, files: any) => {
+    form.parse(req, (err, _, files: any) => {
         if (err) {
             console.log(err);
             return;
@@ -21,6 +21,6 @@ routes.post('/table', (req, res) => {
             sourceFile: resolvedPath
         })
 
-        console.log(result)
+        res.status(201).json(result)
     })
 })
