@@ -1,7 +1,6 @@
 import express from 'express';
 import formidable from 'formidable';
-import excelToJson from 'convert-excel-to-json';
-import path from 'path';
+import { ExcelToJson } from './utils/FileConvert';
 
 export const routes = express.Router()
 
@@ -14,13 +13,8 @@ routes.post('/table', (req, res) => {
             return;
         }
 
-        const filePath = files.table.filepath
-        const resolvedPath = filePath.split(path.sep).join(path.posix.sep);
+        const convertedFile = ExcelToJson(files.table.filepath)
 
-        const result = excelToJson({
-            sourceFile: resolvedPath
-        })
-
-        res.status(201).json(result)
+        res.status(201).json(convertedFile)
     })
 })
