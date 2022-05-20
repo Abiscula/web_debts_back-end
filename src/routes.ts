@@ -7,13 +7,14 @@ export const routes = express.Router()
 routes.post('/table', (req, res) => {
     const form = formidable({ multiples: true })
 
-    form.parse(req, (err, _, files: any) => {
+    form.parse(req, (err, fields, files: any) => {
+        const { month } = fields
         if (err) {
             console.log(err);
             return;
         }
 
-        const convertedFile = ExcelToJson(files.table.filepath)
+        const convertedFile = ExcelToJson(files.table.filepath, month)
 
         res.status(201).json(convertedFile)
     })
