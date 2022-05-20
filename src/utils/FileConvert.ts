@@ -1,14 +1,14 @@
 import excelToJson from 'convert-excel-to-json';
 import path from 'path';
 
-export function ExcelToJson(filePath: string) {
+export function ExcelToJson(filePath: string, month: any) {
     const resolvedPath = filePath.split(path.sep).join(path.posix.sep);
 
     const result = excelToJson({
         sourceFile: resolvedPath
     })
 
-    const jsonFile = ColumnsAdjust(result['Junho'])
+    const jsonFile = ColumnsAdjust(result[month])
     return jsonFile
 }
 
